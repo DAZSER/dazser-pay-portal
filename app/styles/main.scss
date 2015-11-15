@@ -54,10 +54,23 @@ body {
   }
 }
 
+/* My Styles */
+#credit-card, #ach {
+  //Hide the Payment types by default
+  //Then unhide them in JS based on value of Payment Type radio
+  display: none;
+}
+
+.pay-btn{
+  // Center the Payment button
+  width: 100%;
+  text-align: center;
+}
+
 .common {border:1px solid green;}
 .credit-card {border: 1px solid red;}
 .ach {border: 1px solid blue;}
-.pay-btn{width: 100%; text-align: center;}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
