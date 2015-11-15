@@ -1,3 +1,5 @@
+'use strict';
+
 console.log('\'Allo \'Allo!');
 
 function updatePaymentType(paymentType){
@@ -26,7 +28,5 @@ updatePaymentType(radios.value);
 
 //Then bind it to the radio buttons
 for(var i = 0; i < radios.length; i++){
-  radios[i].onclick = function(){
-    updatePaymentType(this.value);
-  }
+  radios[i].onclick = updatePaymentType(this.value);
 }
