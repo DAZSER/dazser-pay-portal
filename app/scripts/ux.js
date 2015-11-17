@@ -1,7 +1,5 @@
 'use strict';
 
-console.log('\'Allo \'Allo!');
-
 function updatePaymentType(paymentType){
     //This function takes a payment type and unhides the correct div
     if(paymentType === 'credit'){
@@ -21,12 +19,31 @@ function updatePaymentType(paymentType){
 
 //Run it on document load
 //Find the value of Payment type radio
-var formElements = document.getElementById('payment-form').elements;
-var radios = formElements['payment-type'];
-
+var radios = document.getElementById('payment-form').elements['payment-type'];
 updatePaymentType(radios.value);
 
 //Then bind it to the radio buttons
 for(var i = 0; i < radios.length; i++){
-  radios[i].onclick = updatePaymentType(this.value);
+  radios[i].onclick = function(){
+    updatePaymentType(this.value);
+  };
 }
+
+//Update the PAY button with the full amount
+function updatePaymentAmount(amount, paymentType){
+  if(paymentType === 'credit'){
+    return +amount + 15;
+  } else if(paymentType === 'ach'){
+    return +amount + 1;
+  } else {
+    console.log('Bad Payment type');
+  }
+}
+
+//Bind onchange for amount to updatePaymentAmount
+var amountInput = document.getElementById('amount');
+amountInput.addEventListener('change', function(){
+  var newAmount = updatePaymentAmount(amountInput.value, radios.value);
+  console.log(newAmount);
+  document.getElementById('span-amount').textContent = newAmount;
+});

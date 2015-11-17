@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -42,83 +42,83 @@
       </div>
     </header>
     <main class="mdl-layout__content">
-      <div class="page-content">
-
+      <div class="form-card mdl-card mdl-shadow--3dp">
         <form id="payment-form">
 
-          <div class="common">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input id="email" name="email" type="text" placeholder="" class="mdl-textfield__input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-              <label class="mdl-textfield__label" for="email">Email</label>
-              <span class="mdl-textfield__error">Not a valid email address!</span>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input id="invoice" name="invoice" type="text" placeholder="" class="mdl-textfield__input">
-              <label class="mdl-textfield__label" for="invoice">Invoice #</label>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input id="Amount" name="Amount" type="text" placeholder="" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?">
-              <label class="mdl-textfield__label" for="Amount">Amount</label>
-              <span class="mdl-textfield__error">Input is not a number!</span>
-            </div>
-
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="payment-type-credit">
-              <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-credit" value="credit" checked>
-              <span class="mdl-radio__label">Credit Card</span>
-            </label>
-
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="payment-type-ach">
-              <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-ach" value="ach">
-              <span class="mdl-radio__Label">ACH</span>
-            </label>
-
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Welcome</h2>
           </div>
 
-          <div id="credit-card">
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="cardnumber">Card number</label>
-              <div class="col-sm-8">
-                <input id="cardnumber" name="cardnumber" type="text" placeholder="" class="form-control input-md" required="">
+          <div class="mdl-card__supporting-text">
+            <p>Please enter in all information to pay for your services with Jani-King.</p>
+            <div class="common">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input id="email" name="email" type="text" placeholder="" class="mdl-textfield__input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                <label class="mdl-textfield__label" for="email">Email</label>
+                <span class="mdl-textfield__error">Not a valid email address!</span>
               </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input id="invoice" name="invoice" type="text" placeholder="" class="mdl-textfield__input">
+                <label class="mdl-textfield__label" for="invoice">Invoice #</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input id="amount" name="Amount" type="text" placeholder="" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?">
+                <label class="mdl-textfield__label" for="Amount">Amount</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect payment-type" for="payment-type-credit">
+                <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-credit" value="credit" checked>
+                <span class="mdl-radio__label">Credit Card</span>
+              </label>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect payment-type" for="payment-type-ach">
+                <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-ach" value="ach">
+                <span class="mdl-radio__Label">ACH</span>
+              </label>
+              <!-- END COMMON -->
             </div>
 
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="expires">Expires</label>
-              <div class="col-sm-8">
-                <div class="input-group">
-                  <span class="input-group-addon">MM/YY</span>
-                  <input id="expires" name="expires" class="form-control" placeholder="" type="text" required="">
+            <div id="credit-card">
+                <p>Paying with Credit Card incurs a $15 convenience fee</p>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="cardnumber" type="text" placeholder="" class="mdl-textfield__input">
+                  <label class="mdl-textfield__label" for="cardnumber">Card number</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="expires" class="mdl-textfield__input" placeholder="" type="text">
+                  <label class="mdl-textfield__label" for="expires">Expires</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="cvc" type="text" placeholder="" class="mdl-textfield__input">
+                  <label class="mdl-textfield__label" for="cvc">CVC</label>
+                </div>
+                <!-- END CC -->
+              </div>
+
+            <div id="ach">
+                <p>Paying with eCheck incurs a $ convenience fee</p>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="routing" type="text" placeholder="" class="mdl-textfield__input">
+                  <label class="mdl-textfield__label" for="routing">Routing</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input id="account" type="text" placeholder="" class="mdl-textfield__input">
+                  <label class="mdl-textfield__label" for="account">Account</label>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="cvc">CVC</label>
-              <div class="col-sm-8">
-                <input id="cvc" name="cvc" type="text" placeholder="" class="form-control input-md" required="">
+              <div id="form-errors">
+                <span class="error">Test error</span>
               </div>
-            </div>
+
+          <!-- END SUPPORTING -->
           </div>
 
-          <div id="ach">
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="routing">Routing</label>
-              <div class="col-sm-8">
-                <input id="routing" name="routing" type="text" placeholder="" class="form-control input-md" required="">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="account">Account</label>
-              <div class="col-sm-8">
-                <input id="account" name="account" type="text" placeholder="" class="form-control input-md" required="">
-              </div>
-            </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="pay-button">Pay $<span id="span-amount"></span></button>
           </div>
-
-          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Pay $<span id="amount"></span></button>
 
         </form>
       </div>
@@ -127,12 +127,12 @@
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      /*(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
       e=o.createElement(i);r=o.getElementsByTagName(i)[0];
       e.src='https://www.google-analytics.com/analytics.js';
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
+      ga('create','UA-XXXXX-X');ga('send','pageview');*/
     </script>
 
     <!-- build:js scripts/vendor.js -->
@@ -146,6 +146,7 @@
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/ux.js"></script>
     <!-- endbuild -->
   </body>
 </html>
