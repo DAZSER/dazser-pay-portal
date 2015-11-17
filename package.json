@@ -4,9 +4,7 @@
     "node": ">=0.12.0"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.3.5",
-    "font-awesome": "^4.4.0",
-    "jquery": "^2.1.4"
+    "material-design-lite": "^1.0.6"
   },
   "devDependencies": {
     "babel": "^5.8.29",
