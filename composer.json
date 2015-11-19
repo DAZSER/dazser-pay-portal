@@ -7,5 +7,7 @@
             "email": "kyle@kmcnally.net"
         }
     ],
-    "require": {}
+    "require": {
+        "stripe/stripe-php": "^3.4"
+    }
 }
