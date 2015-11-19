@@ -13,6 +13,7 @@
     <!-- bower:css -->
     <!-- endbower -->
     <link rel="stylesheet" href="/node_modules/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="/node_modules/mdl-selectfield/mdl-selectfield.min.css">
     <!-- endbuild -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -87,9 +88,38 @@
                   <label class="mdl-textfield__label" for="cardnumber">Card number</label>
                 </div>
 
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="expires" class="mdl-textfield__input" placeholder="" type="text">
-                  <label class="mdl-textfield__label" for="expires">Expires</label>
+                <div class="mdl-selectfield mdl-js-selectfield" id="expires-month-select">
+                  <select id="expires-month" class="mdl-selectfield__select" data-stripe="exp-month">
+                    <option value=""></option>
+                    <option value="1">01 - January</option>
+                    <option value="2">02 - February</option>
+                    <option value="3">03 - March</option>
+                    <option value="4">04 - April</option>
+                    <option value="5">05 - May</option>
+                    <option value="6">06 - June</option>
+                    <option value="7">07 - July</option>
+                    <option value="8">08 - August</option>
+                    <option value="9">09 - September</option>
+                    <option value="10">10 - October</option>
+                    <option value="11">11 - November</option>
+                    <option value="12">12 - December</option>
+                  </select>
+                  <label class="mdl-selectfield__label" for="expires-month">Month</label>
+                  <span class="mdl-textfield__error" id="expires-month-error">Select a month</span>
+                </div>
+
+                <div class="mdl-selectfield mdl-js-selectfield" id="expires-year-select">
+                  <select id="expires-year" class="mdl-selectfield__select" data-stripe="exp-year">
+                    <option value=""></option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                  </select>
+                  <label class="mdl-selectfield__label" for="expires-year">Year</label>
+                  <span class="mdl-textfield__error" id="expires-year-error">Select a year</span>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -145,6 +175,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/plugins.js -->
+    <script src="/node_modules/mdl-selectfield/mdl-selectfield.min.js"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->

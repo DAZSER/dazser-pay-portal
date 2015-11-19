@@ -17,6 +17,16 @@
 }
 
 .error {
+#expires-year-select{
+  width: 50%;
+  display: inline-block;
+}
+
+#expires-month-select{
+  width: 49%;
+  display: inline-block;
+}
+
   //This is the error text
   display: none;
   color: #DD2C00;
