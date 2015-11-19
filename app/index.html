@@ -67,13 +67,15 @@
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input id="invoice" name="invoice" type="text" placeholder="" class="mdl-textfield__input">
-                <label class="mdl-textfield__label" for="invoice">Invoice #</label>
+                <label class="mdl-textfield__label" for="invoice">Invoice Number</label>
+                <span class="mdl-textfield__error">Please enter the invoice number as it appears on your invoice. (#-#####)</span>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input id="amount" name="Amount" type="text" placeholder="" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?">
                 <label class="mdl-textfield__label" for="Amount">Amount</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
               </div>
+
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect payment-type" for="payment-type-credit">
                 <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-credit" value="credit" checked>
                 <span class="mdl-radio__label">Credit Card</span>
@@ -82,6 +84,7 @@
                 <input type="radio" class="mdl-radio__button" name="payment-type" id="payment-type-ach" value="ach">
                 <span class="mdl-radio__Label">ACH</span>
               </label>
+
               <!-- END COMMON -->
             </div>
 
@@ -149,7 +152,7 @@
                 </div>
               </div>
 
-              <p id="error">Test error</p>
+              <p id="error">&nbsp;</p>
 
           <!-- END SUPPORTING -->
           </div>
