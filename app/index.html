@@ -25,7 +25,10 @@
 
     <!-- This is the Stripe JS file -->
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
+    <script type="text/javascript">
+      //Set my publishable key
+      Stripe.setPublishableKey('pk_test_cZSmFhp4VdaBYUOCq0eOsS1r');
+    </script>
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -48,7 +51,7 @@
     </header>
     <main class="mdl-layout__content">
       <div class="form-card mdl-card mdl-shadow--3dp">
-        <form id="payment-form">
+        <form id="payment-form" action="http://pay.dazser.com/process.php" method="POST">
 
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Welcome</h2>
@@ -126,8 +129,9 @@
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="cvc" type="text" placeholder="" class="mdl-textfield__input">
+                  <input id="cvc" type="text" placeholder="" class="mdl-textfield__input" data-stripe="cvc">
                   <label class="mdl-textfield__label" for="cvc">CVC</label>
+                  <span class="mdl-textfield__error" id="cvc-error">Select a year</span>
                 </div>
                 <!-- END CC -->
               </div>

@@ -2,12 +2,8 @@
 
 //https://stripe.com/docs/tutorials/forms
 
-//Set my publishable key
-Stripe.setPublishableKey('pk_test_cZSmFhp4VdaBYUOCq0eOsS1r');
-
-var errorSpan = document.getElementById('error');
-errorSpan.textContent = 'response.error.message';
-errorSpan.display = 'block';
+//Grab a handler for the pay button globally
+var payButton = document.getElementById('pay-button');
 
 //This function is the Credit card response handler
 //.createToken sends the form, along with a promise, the function is
@@ -17,14 +13,29 @@ function stripeResponseCreditHandler(status, response){
 
   if(response.error) {
     // Show the errors to the user
-    document.getElementById('error').textContent = 'response.error.message';
+    console.log(response);
+    var errorSpan = document.getElementById('error');
+    errorSpan.textContent = response.error.message;
+    errorSpan.display = 'block';
+    payButton.disabled = false;
+  } else {
+    //NO error!!! Add the token, then submit to my server
+    //I will process the token with Stripe in order to charge the customer
+    console.log(response);
+    //Create the element
+    var token = document.createElement('input');
+    token.type = 'hidden';
+    token.name = 'stripeToken';
+    token.value = response.id;
+    //And append it to the form!
+    form.appendChild(token);
+    form.submit();
   }
 }
 
 //Create the single use token by sending the CC information to Stripe
 //This will return a token that I can store on my DB server.
 //I can then use that token to charge the customer
-var payButton = document.getElementById('pay-button');
 payButton.addEventListener('click', function(){
   console.log('Pay button clicked');
 
@@ -33,6 +44,7 @@ payButton.addEventListener('click', function(){
 
   //Get the value of the Radio button
   var form = document.getElementById('payment-form');
+  console.log(form);
   var radios = form.elements['payment-type'];
   if(radios.value === 'credit'){
     //Run Stripe code for Credit Cards
