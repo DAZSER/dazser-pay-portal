@@ -29,6 +29,14 @@ function stripeResponseCreditHandler(status, response){
     token.value = response.id;
     //And append it to the form!
     form.appendChild(token);
+    //Also attach the entire response object!
+    var stripeResponse = document.createElement('input');
+    stripeResponse.type = 'hidden';
+    stripeResponse.name = 'stripeResponse';
+    stripeResponse.value = JSON.stringify(response);
+    form.appendChild(stripeResponse);
+
+    //Finally, submit the form!
     form.submit();
   }
 }
@@ -44,7 +52,6 @@ payButton.addEventListener('click', function(){
 
   //Get the value of the Radio button
   var form = document.getElementById('payment-form');
-  console.log(form);
   var radios = form.elements['payment-type'];
   if(radios.value === 'credit'){
     //Run Stripe code for Credit Cards
