@@ -56,6 +56,8 @@ function checkExpiry(month, year){
     if(!Stripe.card.validateExpiry(month, year)){
       //Validate failed!
       console.log('Invalid Expiry Date');
+      expiresMonth.parentElement.className += ' is-invalid';
+      document.getElementById('expires-month-error').textContent = 'Bad Expiration Date!';
     } else {
       console.log('Valid Expiry!');
     }
