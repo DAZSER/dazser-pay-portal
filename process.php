@@ -17,22 +17,38 @@ function test_input($data) {
   return $data;
 }
 
+function returnHome($return){
+  $return['message'] .= "<br/>Your account has not been charged.<br/>
+    Please return to <a href='https://pay.dazser.com'>https://pay.dazser.com</a>
+     to retry.";
+  header('Location: http://athena:9000/receipt.html?r='.
+    base64_encode(json_encode($return)));
+  //header('Location: https://pay.dazser.com/receipt.html?r='.base64_encode($result));
+  die;
+}
+
 $email = test_input($_POST["email"]);
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  die("Invalid email format");
+  $return['message'] = "Invalid email format";
+  returnHome($return);
 }
 
 $invoice = test_input($_POST["invoice"]);
 if(!preg_match("/\b[1-6]{1}-[0-9]{5}\b/",$invoice)){
-  die("Invalid Invoice ID format");
+  $return['message'] = "Invalid Invoice ID format";
+  returnHome($return);
 }
 
 $invoice_amount = filter_var(test_input($_POST["amount"]), FILTER_VALIDATE_FLOAT);
 if($invoice_amount <= 0){
-  die("Invoice Amount too low");
+  $return['message'] = "Invoice Amount too low<br/>
+    Please enter an amount greater than zero.";
+    returnHome($return);
 }
 if($invoice_amount > 750){
-  die("Invoice Amount too high");
+  $return['message'] = "Invoice Amount too high<br/>
+    At this time, we can only accept Invoices up to $750 online.";
+    returnHome($return);
 }
 
 $invoice_amount_in_cents = filter_var($invoice_amount * 100, FILTER_VALIDATE_INT);
@@ -46,7 +62,8 @@ $last4 = filter_var(test_input($_POST["stripeResponse"]["card"]["last4"]), FILTE
 
 $client_ip = test_input($_POST["stripeResponse"]["client_ip"]);
 if(!filter_var($client_ip, FILTER_VALIDATE_IP)) {
-  die("Invalid IP Address");
+  $return['message'] = "Invalid IP Address";
+  returnHome($return);
 }
 
 $created = filter_var(test_input($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
@@ -55,7 +72,9 @@ $created = filter_var(test_input($_POST["stripeResponse"]["created"]), FILTER_VA
 $db = new mysqli('localhost', $mysqlUser, $mysqlPass, 'global');
 
 if( $db->connect_errno > 0 ) {
-  die('Unable to connect to database ['. $db->connect_error .']');
+  $return['message'] = "Unable to connect to database<br/>
+    Error: " . $db->connect_error;
+    returnHome($return);
 }
 
 //Create the statement
@@ -97,15 +116,30 @@ try {
                       )
   ));
 } catch(\Stripe\Error\Card $e) {
-  echo json_encode($e);
-  die();
+  // Since it's a decline, \Stripe\Error\Card will be caught
+  $body = $e->getJsonBody();
+  $error  = $body['error'];
+  returnHome($error);
+} catch (\Stripe\Error\RateLimit $e) {
+  // Too many requests made to the API too quickly
+} catch (\Stripe\Error\InvalidRequest $e) {
+  // Invalid parameters were supplied to Stripe's API
+} catch (\Stripe\Error\Authentication $e) {
+  // Authentication with Stripe's API failed
+  // (maybe you changed API keys recently)
+} catch (\Stripe\Error\ApiConnection $e) {
+  // Network communication with Stripe failed
+} catch (\Stripe\Error\Base $e) {
+  // Display a very generic error to the user, and maybe send
+  // yourself an email
+} catch (Exception $e) {
+  // Something else happened, completely unrelated to Stripe
 }
 
 //Finally, let's update the row in my db with more info from Stripe!
 $update = $db->prepare("UPDATE `stripe_charges` SET
   `transaction_id`=?, `charged`=FROM_UNIXTIME(?) WHERE `id`=?");
 
-echo json_encode($db->error);
 $transaction_id = $charge["id"];
 $charged = $charge["created"];
 
@@ -115,3 +149,12 @@ $update->execute();
 
 $update->free_result();
 $db->close();
+
+$return = "Your account has been charged and a receipt has been
+   emailed to you. You may now close this window.
+   <br/><br/>Thank you for your business.";
+
+//Send to receipt
+header('Location: http://athena:9000/receipt.html?r='.base64_encode($return));
+//header('Location: https://pay.dazser.com/receipt.html?r='.base64_encode($return));
+die;
