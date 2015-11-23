@@ -57,6 +57,7 @@ function checkExpiry(month, year){
       //Validate failed!
       console.log('Invalid Expiry Date');
       expiresMonth.parentElement.className += ' is-invalid';
+      expiresYear.parentElement.className += ' is-invalid';
       document.getElementById('expires-month-error').textContent = 'Bad Expiration Date!';
     } else {
       console.log('Valid Expiry!');
