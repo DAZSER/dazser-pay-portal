@@ -50,6 +50,12 @@ payButton.addEventListener('click', function(){
   //Disable the button after click
   payButton.disabled = true;
 
+  var spinner = document.createElement('i');
+  spinner.className = 'fa fa-spinner fa-spin fa-lg';
+
+  payButton.textContent = '';
+  payButton.appendChild(spinner);
+
   //Get the value of the Radio button
   var form = document.getElementById('payment-form');
   var radios = form.elements['payment-type'];
