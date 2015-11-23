@@ -1,0 +1,2 @@
+//Receipt.js
+'use strict';
