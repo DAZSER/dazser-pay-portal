@@ -4,7 +4,18 @@
 
 //Email is validated within HTML5
 //Invoice number is validated within HTML5
-//Amount is validated within HTML5
+//Amount is validated within HTML5 (to make sure it's a number, but still need
+// to validate amount)
+var amount = document.getElementById('amount');
+amount.addEventListener('blur', function(){
+  if(amount.value < 0){
+    
+  } else if (amount.value > 750){
+
+  } else {
+
+  }
+});
 
 var cardNumber = document.getElementById('card-number');
 var cardNumberIcon = document.getElementById('input-icon-card-number');
