@@ -33,5 +33,19 @@
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
     "wiredep": "^2.2.2"
+  },
+  "eslintConfig": {
+    "ecmaFeatures": {
+      "modules": true,
+      "blockBindings": true,
+      "arrowFunctions": true
+    },
+    "env": {
+      "node": true,
+      "browser": true
+    },
+    "rules": {
+      "quotes": [2, "single"]
+    }
   }
 }
