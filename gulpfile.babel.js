@@ -44,7 +44,7 @@ const lintOptions = {
   globals: {
     'Stripe': true
   }
-}
+};
 
 gulp.task('lint', lint('app/scripts/**/*.js', lintOptions));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
