@@ -19,7 +19,7 @@ gulp.task('styles', () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['last 1 version']}))
     /*.pipe($.uncss({
-      html: [ 'app/index.html' ]
+      html: [ 'app/index.html', 'app/receipt.html' ]
     }))*/
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
@@ -54,7 +54,7 @@ gulp.task('html', ['styles'], () => {
 
   return gulp.src('app/*.html')
     .pipe(assets)
-    .pipe($.if('*.js', $.stripDebug()))
+    //.pipe($.if('*.js', $.stripDebug()))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
