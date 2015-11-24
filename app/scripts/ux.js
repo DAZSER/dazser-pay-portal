@@ -22,12 +22,17 @@ function updatePaymentType(paymentType){
 var radios = document.getElementById('payment-form').elements['payment-type'];
 updatePaymentType(radios.value);
 
-//Then bind it to the radio buttons
-for(var i = 0; i < radios.length; i++){
-  radios[i].onclick = function(){
+function bindElement(z){
+  radios[z].onclick = function(){
     updatePaymentType(this.value);
   };
 }
+
+//Then bind it to the radio buttons
+for(var i = 0; i < radios.length; i++){
+  bindElement(i);
+}
+
 
 //Update the PAY button with the full amount
 function updatePaymentAmount(amount, paymentType){
