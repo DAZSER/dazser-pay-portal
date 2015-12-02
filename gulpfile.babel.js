@@ -11,7 +11,7 @@ const reload = browserSync.reload;
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
-    .pipe($.sourcemaps.init())
+    //.pipe($.sourcemaps.init())
     .pipe($.sass.sync({
       outputStyle: 'expanded',
       precision: 10,
@@ -21,7 +21,7 @@ gulp.task('styles', () => {
     /*.pipe($.uncss({
       html: [ 'app/index.html', 'app/receipt.html' ]
     }))*/
-    .pipe($.sourcemaps.write())
+    //.pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
     .pipe(reload({stream: true}));
 });
