@@ -69,7 +69,7 @@ if(!filter_var($client_ip, FILTER_VALIDATE_IP)) {
 $created = filter_var(test_input($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
 
 //Second, let's connect to my database & insert the row
-$db = new mysqli('localhost', $mysqlUser, $mysqlPass, 'global');
+$db = new mysqli('localhost', MYSQL_USER, MYSQL_PASS, 'global');
 
 if( $db->connect_errno > 0 ) {
   $return['message'] = "Unable to connect to database<br/>
@@ -99,7 +99,7 @@ $insert->free_result();
 
 //Third, let's talk to Stripe to charge the card
 //Set my secret key
-\Stripe\Stripe::setApiKey($stripeSecretKey);
+\Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
 $token = $_POST['stripeToken'];
 
