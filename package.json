@@ -6,7 +6,7 @@
   "dependencies": {
     "font-awesome": "^4.4.0",
     "material-design-lite": "^1.0.6",
-    "mdl-selectfield": "0.0.2"
+    "mdl-selectfield": "0.0.3"
   },
   "devDependencies": {
     "babel": "^5.8.29",
