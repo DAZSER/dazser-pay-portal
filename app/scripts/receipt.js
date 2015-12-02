@@ -19,6 +19,8 @@ if ( urlParams.r ){
   returnText = 'Error: Please contact us for assistance before trying again.';
 }
 console.log(returnText);
-var returnElement = document.getElementById('return-text');
 
-returnElement.innerHTML = returnText.message;
+document.addEventListener('DOMContentLoaded', function(event){
+  var returnElement = document.getElementById('return-text');
+  returnElement.innerHTML = returnText.message;
+});
