@@ -18,21 +18,12 @@ function updatePaymentType(paymentType){
 }
 
 //Run it on document load
-//Find the value of Payment type radio
-var radios = document.getElementById('payment-form').elements['payment-type'];
-updatePaymentType(radios.value);
-
-function bindElement(z){
-  radios[z].onclick = function(){
-    updatePaymentType(this.value);
-  };
-}
-
-//Then bind it to the radio buttons
-for(var i = 0; i < radios.length; i++){
-  bindElement(i);
-}
-
+//Find the value of Payment type dropdown
+var paymentElement = document.getElementById('payment-form').elements['payment-type'];
+updatePaymentType(paymentElement.value);
+paymentElement.addEventListener('change', function(){
+  updatePaymentType(this.value);
+});
 
 //Update the PAY button with the full amount
 function updatePaymentAmount(amount, paymentType){
@@ -48,7 +39,7 @@ function updatePaymentAmount(amount, paymentType){
 //Bind onchange for amount to updatePaymentAmount
 var amountInput = document.getElementById('amount');
 amountInput.addEventListener('change', function(){
-  var newAmount = updatePaymentAmount(amountInput.value, radios.value);
+  var newAmount = updatePaymentAmount(amountInput.value, paymentElement.value);
   console.log(newAmount);
   document.getElementById('span-amount').textContent = newAmount;
 });
