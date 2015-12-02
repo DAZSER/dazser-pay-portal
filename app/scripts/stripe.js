@@ -36,7 +36,12 @@ function stripeResponseCreditHandler(status, response){
     stripeResponse.value = JSON.stringify(response);
     form.appendChild(stripeResponse);
 
+    //Add the action for the form
+    form.action = 'https://pay.dazser.com/process.php';
+    form.method = 'POST';
+
     //Finally, submit the form!
+    console.log('Submit!');
     form.submit();
   }
 }
@@ -44,6 +49,10 @@ function stripeResponseCreditHandler(status, response){
 //Create the single use token by sending the CC information to Stripe
 //This will return a token that I can store on my DB server.
 //I can then use that token to charge the customer
+payButton.addEventListener('click', function(event){
+  console.log('Cancel form submit quickly');
+  event.preventDefault();
+});
 payButton.addEventListener('click', function(){
   console.log('Pay button clicked');
 
@@ -67,7 +76,4 @@ payButton.addEventListener('click', function(){
   } else {
     //Invalid Radio value
   }
-
-  //Disable normal form flow
-  return false;
 });

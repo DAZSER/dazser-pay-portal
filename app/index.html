@@ -69,7 +69,7 @@
     </header>
     <main class="mdl-layout__content">
       <div class="form-card mdl-card mdl-shadow--3dp">
-        <form id="payment-form" action="https://pay.dazser.com/process.php" method="POST">
+        <form id="payment-form">
 
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Welcome</h2>
@@ -178,7 +178,7 @@
           </div>
 
           <div class="mdl-card__actions mdl-card--border">
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="pay-button">Pay $<span id="span-amount"></span></button>
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="pay-button">Pay $<span id="span-amount"></span></button>
           </div>
 
         </form>
@@ -207,7 +207,6 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
     <script src="scripts/ux.js"></script>
     <script src="scripts/validation.js"></script>
     <script src="scripts/stripe.js"></script>
