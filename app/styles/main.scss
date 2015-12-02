@@ -51,3 +51,12 @@
   //Hack to stop the display of the ACH form until we get it working with Stripe
   display:none;
 }
+
+.amount-div{
+  width:75%;
+  display: inline-block;
+}
+.total-amount-div{
+  width:20%;
+  display:inline-block;
+}

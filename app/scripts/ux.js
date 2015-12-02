@@ -42,4 +42,5 @@ amountInput.addEventListener('change', function(){
   var newAmount = updatePaymentAmount(amountInput.value, paymentElement.value);
   console.log(newAmount);
   document.getElementById('span-amount').textContent = newAmount;
+  document.getElementById('total-amount').value = newAmount;
 });
