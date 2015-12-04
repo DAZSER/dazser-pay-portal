@@ -9,37 +9,39 @@ require_once('settings.php');
  * last4, client_ip, and created;
  */
 
-function test_input($data) {
+ $return['message'] = "Your account has been charged and a receipt has been
+    emailed to you. You may now close this window.
+    <br/><br/>Thank you for your business!";
+
+function sanitize($data) {
   // This function sanatizes the data
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+  return trim(stripslashes(htmlspecialchars($data)));
 }
 
-function returnHome($return){
-  $return['message'] .= "<br/>Your account has not been charged.<br/>
+function returnHome($result){
+  $result['message'] .= "<br/>Your account has not been charged.<br/>
     Please return to <a href='https://pay.dazser.com'>https://pay.dazser.com</a>
      to retry.";
-  header('Location: http://athena:9000/receipt.html?r='.
-    base64_encode(json_encode($return)));
-  //header('Location: https://pay.dazser.com/receipt.html?r='.base64_encode($result));
+  //header('Location: http://athena:9000/receipt.html?r='.
+  //  base64_encode(json_encode($return)));
+  header('Location: https://pay.dazser.com/receipt.html?r='.
+    base64_encode(json_encode($result)));
   die;
 }
 
-$email = test_input($_POST["email"]);
+$email = sanitize($_POST["email"]);
 if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $return['message'] = "Invalid email format";
   returnHome($return);
 }
 
-$invoice = test_input($_POST["invoice"]);
+$invoice = sanitize($_POST["invoice"]);
 if(!preg_match("/\b[1-6]{1}-[0-9]{5}\b/",$invoice)){
   $return['message'] = "Invalid Invoice ID format";
   returnHome($return);
 }
 
-$invoice_amount = filter_var(test_input($_POST["amount"]), FILTER_VALIDATE_FLOAT);
+$invoice_amount = filter_var(sanitize($_POST["amount"]), FILTER_VALIDATE_FLOAT);
 if($invoice_amount <= 0){
   $return['message'] = "Invoice Amount too low<br/>
     Please enter an amount greater than zero.";
@@ -56,17 +58,17 @@ $invoice_amount_in_cents = filter_var($invoice_amount * 100, FILTER_VALIDATE_INT
 //No validation necessary
 $charged_amount_in_cents = $invoice_amount_in_cents + 1500;
 $_POST["stripeResponse"] = json_decode($_POST["stripeResponse"], true);
-$payment_type = test_input($_POST["payment-type"]);
-$payment_brand = test_input($_POST["stripeResponse"]["card"]["brand"]);
-$last4 = filter_var(test_input($_POST["stripeResponse"]["card"]["last4"]), FILTER_VALIDATE_INT);
+$payment_type = sanitize($_POST["payment-type"]);
+$payment_brand = sanitize($_POST["stripeResponse"]["card"]["brand"]);
+$last4 = filter_var(sanitize($_POST["stripeResponse"]["card"]["last4"]), FILTER_VALIDATE_INT);
 
-$client_ip = test_input($_POST["stripeResponse"]["client_ip"]);
+$client_ip = sanitize($_POST["stripeResponse"]["client_ip"]);
 if(!filter_var($client_ip, FILTER_VALIDATE_IP)) {
   $return['message'] = "Invalid IP Address";
   returnHome($return);
 }
 
-$created = filter_var(test_input($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
+$created = filter_var(sanitize($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
 
 //Second, let's connect to my database & insert the row
 $db = new mysqli('localhost', MYSQL_USER, MYSQL_PASS, 'global');
@@ -150,11 +152,8 @@ $update->execute();
 $update->free_result();
 $db->close();
 
-$return = "Your account has been charged and a receipt has been
-   emailed to you. You may now close this window.
-   <br/><br/>Thank you for your business.";
-
 //Send to receipt
-header('Location: http://athena:9000/receipt.html?r='.base64_encode($return));
-//header('Location: https://pay.dazser.com/receipt.html?r='.base64_encode($return));
+//header('Location: http://athena:9000/receipt.html?r='.base64_encode($return));
+header('Location: https://pay.dazser.com/receipt.html?r='.
+  base64_encode(json_encode($return)));
 die;
