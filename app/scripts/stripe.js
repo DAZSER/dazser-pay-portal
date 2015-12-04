@@ -5,6 +5,33 @@
 //Grab a handler for the pay button globally
 var payButton = document.getElementById('pay-button');
 
+//This function will switch the submit button between submittable and submitting
+function payButtonStateChanger(state){
+  if(state === 'submittable'){
+    //reset paybutton to defaults
+    payButton.disabled = false;
+
+    document.getElementById('spinner').remove();
+
+    var amountSpan = document.createElement('span');
+    amountSpan.id = 'span-amount';
+
+    payButton.textContent = 'Pay $';
+    payButton.appendChild(amountSpan);
+
+  } else if (state === 'submitting'){
+    //change to disabled and spinner
+    payButton.disabled = true;
+
+    var spinner = document.createElement('i');
+    spinner.className = 'fa fa-spinner fa-spin fa-lg';
+    spinner.id = 'spinner';
+
+    payButton.textContent = '';
+    payButton.appendChild(spinner);
+  }
+}
+
 //This function is the Credit card response handler
 //.createToken sends the form, along with a promise, the function is
 //called when the promise is fulfilled
@@ -14,10 +41,10 @@ function stripeResponseCreditHandler(status, response){
   if(response.error) {
     // Show the errors to the user
     console.log(response);
-    var errorSpan = document.getElementById('error');
-    errorSpan.textContent = response.error.message;
-    errorSpan.display = 'block';
-    payButton.disabled = false;
+    var errorElement = document.getElementById('error-holder');
+    errorElement.textContent = response.error.message;
+    errorElement.display = 'block';
+    payButtonStateChanger('submittable');
   } else {
     //NO error!!! Add the token, then submit to my server
     //I will process the token with Stripe in order to charge the customer
@@ -56,14 +83,8 @@ payButton.addEventListener('click', function(event){
 payButton.addEventListener('click', function(){
   console.log('Pay button clicked');
 
-  //Disable the button after click
-  payButton.disabled = true;
-
-  var spinner = document.createElement('i');
-  spinner.className = 'fa fa-spinner fa-spin fa-lg';
-
-  payButton.textContent = '';
-  payButton.appendChild(spinner);
+  //Change the state of the pay button
+  payButtonStateChanger('submitting');
 
   //Get the value of the Radio button
   var form = document.getElementById('payment-form');
