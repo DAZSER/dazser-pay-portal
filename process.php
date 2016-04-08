@@ -71,7 +71,7 @@ if(!filter_var($client_ip, FILTER_VALIDATE_IP)) {
 $created = filter_var(sanitize($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
 
 //Second, let's connect to my database & insert the row
-$db = new mysqli('localhost', MYSQL_USER, MYSQL_PASS, 'global');
+$db = new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASS, 'global');
 
 if( $db->connect_errno > 0 ) {
   $return['message'] = "Unable to connect to database<br/>
