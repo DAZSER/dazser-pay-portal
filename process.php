@@ -5,7 +5,7 @@ require_once('settings.php');
 /*
  * First, let's validate and sanatize the data!
  * Here is the info I need:
- * email, invoice, invoice_amount, charged_amount, payment-type, payment-brand,
+ * email, invoice, invoice_amount, charged_amount, payment-brand,
  * last4, client_ip, and created;
  */
 
