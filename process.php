@@ -58,7 +58,6 @@ $invoice_amount_in_cents = filter_var($invoice_amount * 100, FILTER_VALIDATE_INT
 //No validation necessary
 $charged_amount_in_cents = $invoice_amount_in_cents + 1500;
 $_POST["stripeResponse"] = json_decode($_POST["stripeResponse"], true);
-$payment_type = sanitize($_POST["payment-type"]);
 $payment_brand = sanitize($_POST["stripeResponse"]["card"]["brand"]);
 $last4 = filter_var(sanitize($_POST["stripeResponse"]["card"]["last4"]), FILTER_VALIDATE_INT);
 
@@ -80,24 +79,38 @@ if( $db->connect_errno > 0 ) {
 }
 
 //Create the statement
-$insert = $db->prepare("INSERT INTO `stripe_charges` (`email`,`invoice`,
-  `invoice_amount`,`charged_amount`,`payment-type`,`payment-brand`,
-  `last4`,`client_ip`, `created`) VALUES (?,?,?,?,?,?,?,
-  INET_ATON(?),FROM_UNIXTIME(?))");
+$insertSql = "INSERT INTO `stripe_charges` (`email`,`invoice`,
+  `invoice_amount`,`charged_amount`,`payment-brand`,
+  `last4`,`client_ip`, `created`) VALUES (?,?,?,?,?,?,
+  INET_ATON(?),FROM_UNIXTIME(?))";
 
-//Bind the parameters
-$insert->bind_param('ssddssisi', $email, $invoice, $invoice_amount_in_cents,
-  $charged_amount_in_cents, $payment_type, $payment_brand, $last4, $client_ip,
-  $created);
+if($insert = $db->prepare($insertSql)){
+  //Bind the parameters
+  if(!$insert->bind_param('ssddsisi', $email, $invoice, $invoice_amount_in_cents,
+    $charged_amount_in_cents, $payment_brand, $last4, $client_ip,
+    $created)){
+    //if bind_param fails
+    $return['message'] = $db->error;
+    returnHome($return);
+  }
 
-//Execute the statement
-$insert->execute();
+  //Execute the statement
+  if(!$insert->execute()){
+    $return['message'] = $db->error;
+    returnHome($return);
+  }
 
-//Get the ID
-$inserted_id = $insert->insert_id;
+  //Get the ID
+  $inserted_id = $insert->insert_id;
 
-//Free the results
-$insert->free_result();
+  //Free the results
+  $insert->free_result();
+
+} else {
+  //Insert Failed!
+  $return['message'] = $db->error;
+  returnHome($return);
+}
 
 //Third, let's talk to Stripe to charge the card
 //Set my secret key
@@ -105,6 +118,7 @@ $insert->free_result();
 
 $token = $_POST['stripeToken'];
 
+//Let's CHARGE THE CARD!
 try {
   $charge = \Stripe\Charge::create(array(
     "amount"      =>  $charged_amount_in_cents, //Charge in WHOLE CENTS!
@@ -138,18 +152,25 @@ try {
   // Something else happened, completely unrelated to Stripe
 }
 
+//THE CARD HAS BEEN CHARGED!
+
 //Finally, let's update the row in my db with more info from Stripe!
-$update = $db->prepare("UPDATE `stripe_charges` SET
-  `transaction_id`=?, `charged`=FROM_UNIXTIME(?) WHERE `id`=?");
+$updateSql = "UPDATE `stripe_charges` SET
+  `transaction_id`=?, `charged`=FROM_UNIXTIME(?) WHERE `id`=?";
+if($update = $db->prepare($updateSql)){
+  $transaction_id = $charge["id"];
+  $charged = $charge["created"];
 
-$transaction_id = $charge["id"];
-$charged = $charge["created"];
+  $update->bind_param('sii',$transaction_id,$charged,$inserted_id);
 
-$update->bind_param('sii',$transaction_id,$charged,$inserted_id);
+  $update->execute();
 
-$update->execute();
+  $update->free_result();
+} else {
+  //The UPDATE failed :(
+  $return['message'] .= $db->error;
+}
 
-$update->free_result();
 $db->close();
 
 //Send to receipt
