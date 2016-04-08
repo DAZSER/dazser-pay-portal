@@ -35,10 +35,11 @@ if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $invoice = sanitize($_POST["invoice"]);
-if(!preg_match("/\b[1-6]{1}-[0-9]{5}\b/",$invoice)){
-  $return['message'] = "Invalid Invoice ID format";
-  returnHome($return);
-}
+//Let all invoice text go through :(
+//if(!preg_match("/\b[1-6]{1}-[0-9]{5}\b/",$invoice)){
+//  $return['message'] = "Invalid Invoice ID format";
+//  returnHome($return);
+//}
 
 $invoice_amount = filter_var(sanitize($_POST["amount"]), FILTER_VALIDATE_FLOAT);
 if($invoice_amount <= 0){
