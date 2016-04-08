@@ -23,7 +23,6 @@ function returnHome($result){
     Please return to <a href='https://pay.dazser.com'>https://pay.dazser.com</a>
      to retry.";
   //header('Location: http://athena:9000/receipt.html?r='.
-  //  base64_encode(json_encode($return)));
   header('Location: https://pay.dazser.com/receipt.html?r='.
     base64_encode(json_encode($result)));
   die;
