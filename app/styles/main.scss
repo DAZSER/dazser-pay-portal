@@ -41,17 +41,6 @@
   color: #DD2C00;
 }
 
-#credit-card, #ach {
-  //Hide the Payment types by default
-  //Then unhide them in JS based on value of Payment Type dropdown
-  display: none;
-}
-
-.payment-type{
-  //Hack to stop the display of the ACH form until we get it working with Stripe
-  display:none;
-}
-
 .amount-div{
   width:75%;
   display: inline-block;

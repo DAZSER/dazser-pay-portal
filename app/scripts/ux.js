@@ -1,22 +1,5 @@
 'use strict';
 
-function updatePaymentType(paymentType){
-    //This function takes a payment type and unhides the correct div
-    if(paymentType === 'credit'){
-      console.log('Credit');
-      document.getElementById('credit-card').style.display = 'block';
-      document.getElementById('ach').style.display = 'none';
-    } else if(paymentType === 'ach'){
-      console.log('ACH');
-      document.getElementById('credit-card').style.display = 'none';
-      document.getElementById('ach').style.display = 'block';
-    } else {
-      console.log('Bad Payment type');
-      document.getElementById('credit-card').style.display = 'none';
-      document.getElementById('ach').style.display = 'none';
-    }
-}
-
 //Run it on document load
 //Find the value of Payment type dropdown
 var paymentElement = document.getElementById('payment-form').elements['payment-type'];
