@@ -1,28 +1,14 @@
 'use strict';
 
-//Run it on document load
-//Find the value of Payment type dropdown
-var paymentElement = document.getElementById('payment-form').elements['payment-type'];
-updatePaymentType(paymentElement.value);
-paymentElement.addEventListener('change', function(){
-  updatePaymentType(this.value);
-});
-
 //Update the PAY button with the full amount
-function updatePaymentAmount(amount, paymentType){
-  if(paymentType === 'credit'){
-    return +amount + 15;
-  } else if(paymentType === 'ach'){
-    return +amount + 1;
-  } else {
-    console.log('Bad Payment type');
-  }
+function updatePaymentAmount(amount){
+  return +amount + 15;
 }
 
 //Bind onchange for amount to updatePaymentAmount
 var amountInput = document.getElementById('amount');
 amountInput.addEventListener('change', function(){
-  var newAmount = updatePaymentAmount(amountInput.value, paymentElement.value);
+  var newAmount = updatePaymentAmount(amountInput.value);
   console.log(newAmount);
   document.getElementById('span-amount').textContent = newAmount;
   document.getElementById('total-amount').value = newAmount;

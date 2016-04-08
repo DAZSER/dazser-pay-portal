@@ -88,13 +88,13 @@ payButton.addEventListener('click', function(){
 
   //Get the value of the Radio button
   var form = document.getElementById('payment-form');
-  var radios = form.elements['payment-type'];
-  if(radios.value === 'credit'){
+  //var radios = form.elements['payment-type'];
+  //if(radios.value === 'credit'){
     //Run Stripe code for Credit Cards
     Stripe.card.createToken(form, stripeResponseCreditHandler);
-  } else if (radios.value === 'ach') {
+  //} else if (radios.value === 'ach') {
     //Run Stripe code for ACH
-  } else {
+  //} else {
     //Invalid Radio value
-  }
+  //}
 });
