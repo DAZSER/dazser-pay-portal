@@ -1,0 +1,13 @@
+{
+    "name": "dazser/dazser-pay-processor",
+    "description": "Server side code to charge the customer on Stripe",
+    "authors": [
+        {
+            "name": "Kyle McNally",
+            "email": "kyle@kmcnally.net"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^3.4"
+    }
+}
