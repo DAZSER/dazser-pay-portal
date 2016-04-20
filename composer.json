@@ -1,5 +1,5 @@
 {
-    "name": "dazser/dazser-pay-processor",
+    "name": "dazser/dazser-pay-portal",
     "description": "Server side code to charge the customer on Stripe",
     "authors": [
         {
@@ -9,5 +9,8 @@
     ],
     "require": {
         "stripe/stripe-php": "^3.4"
+    },
+    "config": {
+        "vendor-dir": "server/vendor"
     }
 }
