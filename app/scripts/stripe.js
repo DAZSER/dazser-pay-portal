@@ -64,7 +64,7 @@ function stripeResponseCreditHandler(status, response){
     form.appendChild(stripeResponse);
 
     //Add the action for the form
-    form.action = 'https://pay.dazser.com/process.php';
+    form.action = 'process.php';
     form.method = 'POST';
 
     //Finally, submit the form!
