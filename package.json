@@ -33,8 +33,7 @@
     "gulp-uncss": "^1.0.4",
     "gulp-useref": "^2",
     "main-bower-files": "^2.5.0",
-    "opn": "^1.0.1",
-    "wiredep": "^2.2.2"
+    "wiredep": "^4"
   },
   "eslintConfig": {
     "ecmaFeatures": {
