@@ -31,7 +31,7 @@
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.1.0",
     "gulp-uncss": "^1.0.4",
-    "gulp-useref": "^1.1.1",
+    "gulp-useref": "^2",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
     "wiredep": "^2.2.2"
