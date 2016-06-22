@@ -64,7 +64,7 @@ gulp.task('html', ['styles'], () => {
 });
 
 gulp.task('php', () => {
-  return gulp.src('server/**/*',)
+  return gulp.src('server/**/*')
     .pipe(gulp.dest('dist'));
 });
 
