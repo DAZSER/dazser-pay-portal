@@ -124,7 +124,7 @@ try {
     "amount"      =>  $charged_amount_in_cents, //Charge in WHOLE CENTS!
     "currency"    =>  "usd",
     "source"      =>  $token,
-    "description" =>  "Jani-King Cleaning Services - ".$invoice,
+    "description" =>  "Jani-King Cleaning Services - ".html_entity_decode($invoice)." - includes $15 fee",
     "receipt_email" =>  $email,
     "metadata"    =>  array(
                         "invoice" =>  $invoice,
