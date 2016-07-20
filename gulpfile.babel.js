@@ -36,14 +36,14 @@ function lint(files, options) {
   };
 }
 const testLintOptions = {
-  env: {
-    mocha: true
-  }
+  env: [
+    'mocha'
+  ]
 };
 const lintOptions = {
-  globals: {
-    'Stripe': true
-  }
+  globals: [
+    'Stripe'
+  ]
 };
 
 gulp.task('lint', lint('app/scripts/**/*.js', lintOptions));
