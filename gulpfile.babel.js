@@ -93,6 +93,41 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest('dist/fonts'));
 });
 
+gulp.task("favicons", () => {
+  return gulp.src("app/images/favicon.png").pipe($.favicons({
+      appName: "DAZSER Payment Portal",
+      appDescription: "This application lets customers pay by credit card",
+      developerName: "Kyle McNally",
+      developerURL: "http://www.dazser.com/",
+      background: "#000000",
+      path: "/favicons",
+      url: "http://pay.dazser.com/",
+      display: "standalone",
+      orientation: "portrait",
+      version: 1.0,
+      logging: true,
+      online: false,
+      html: "favicons.html",
+      pipeHTML: true,
+      replace: false,
+      icons: {
+           android: true,              // Create Android homescreen icon. `boolean`
+           appleIcon: true,            // Create Apple touch icons. `boolean`
+           appleStartup: false,         // Create Apple startup images. `boolean`
+           coast: false,                // Create Opera Coast icon. `boolean`
+           favicons: true,             // Create regular favicons. `boolean`
+           firefox: false,              // Create Firefox OS icons. `boolean`
+           opengraph: false,            // Create Facebook OpenGraph image. `boolean`
+           twitter: false,              // Create Twitter Summary Card image. `boolean`
+           windows: true,              // Create Windows 8 tile icons. `boolean`
+           yandex: false                // Create Yandex browser icon. `boolean`
+       }
+  }))
+  .pipe(gulp.dest("dist/favicons"));
+});
+
+
+
 gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
@@ -172,11 +207,11 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'php', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'favicons', 'php', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('prod', ['lint', 'html', 'php', 'images', 'fonts', 'extras'], () => {
+gulp.task('prod', ['lint', 'html', 'favicons', 'php', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
