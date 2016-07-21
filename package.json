@@ -32,7 +32,7 @@
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.1.0",
     "gulp-uncss": "^1.0.4",
-    "gulp-useref": "^2",
+    "gulp-useref": "^3",
     "main-bower-files": "^2.5.0",
     "wiredep": "^4"
   },
