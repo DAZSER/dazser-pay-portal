@@ -49,7 +49,7 @@ if($invoice_amount <= 0){
 }
 if($invoice_amount > 1000){
   $return['message'] = "Invoice Amount too high<br/>
-    At this time, we can only accept Invoices up to $1000 online.";
+    At this time, we can only accept payments up to $1000 online.";
     returnHome($return);
 }
 
