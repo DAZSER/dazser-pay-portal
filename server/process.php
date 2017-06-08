@@ -57,17 +57,17 @@ $invoice_amount_in_cents = filter_var($invoice_amount * 100, FILTER_VALIDATE_INT
 
 //No validation necessary
 $charged_amount_in_cents = $invoice_amount_in_cents + 1500;
-$_POST["stripeResponse"] = json_decode($_POST["stripeResponse"], true);
-$payment_brand = sanitize($_POST["stripeResponse"]["card"]["brand"]);
-$last4 = filter_var(sanitize($_POST["stripeResponse"]["card"]["last4"]), FILTER_VALIDATE_INT);
+$_POST["stripeToken"] = json_decode($_POST["stripeToken"], true);
+$payment_brand = sanitize($_POST["stripeToken"]["card"]["brand"]);
+$last4 = filter_var(sanitize($_POST["stripeToken"]["card"]["last4"]), FILTER_VALIDATE_INT);
 
-$client_ip = sanitize($_POST["stripeResponse"]["client_ip"]);
+$client_ip = sanitize($_POST["stripeToken"]["client_ip"]);
 if(!filter_var($client_ip, FILTER_VALIDATE_IP)) {
   $return['message'] = "Invalid IP Address";
   returnHome($return);
 }
 
-$created = filter_var(sanitize($_POST["stripeResponse"]["created"]), FILTER_VALIDATE_INT);
+$created = filter_var(sanitize($_POST["stripeToken"]["created"]), FILTER_VALIDATE_INT);
 
 //Second, let's connect to my database & insert the row
 $db = new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASS, 'global');
@@ -116,7 +116,7 @@ if($insert = $db->prepare($insertSql)){
 //Set my secret key
 \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
-$token = $_POST['stripeToken'];
+$token = $_POST['stripeToken']['id'];
 
 //Let's CHARGE THE CARD!
 try {
