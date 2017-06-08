@@ -2,6 +2,9 @@
 require_once('vendor/autoload.php');
 require_once('settings.php');
 
+//$location = "http://127.0.0.1:9000";
+$location = "https://pay.dazser.com";
+
 /*
  * First, let's validate and sanatize the data!
  * Here is the info I need:
@@ -20,11 +23,8 @@ function sanitize($data) {
 
 function returnHome($result){
   $result['message'] .= "<br/>Your account has not been charged.<br/>
-    Please return to <a href='https://pay.dazser.com'>https://pay.dazser.com</a>
-     to retry.";
-  //header('Location: http://athena:9000/receipt.html?r='.
-  header('Location: https://pay.dazser.com/receipt.html?r='.
-    base64_encode(json_encode($result)));
+    Please return to <a href='https://pay.dazser.com'>https://pay.dazser.com</a> to retry.";
+  header("Location: $location/receipt.html?r=".base64_encode(json_encode($result)));
   die;
 }
 
@@ -192,7 +192,5 @@ if($update = $db->prepare($updateSql)){
 $db->close();
 
 //Send to receipt
-//header('Location: http://athena:9000/receipt.html?r='.base64_encode($return));
-header('Location: https://pay.dazser.com/receipt.html?r='.
-  base64_encode(json_encode($return)));
+header("Location: $location/receipt.html?r=".base64_encode(json_encode($return)));
 die;
