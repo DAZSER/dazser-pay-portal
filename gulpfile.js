@@ -1,3 +1,5 @@
+'use strict';
+
 // generated on 2016-07-20 using generator-webapp 2.1.0
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
@@ -50,7 +52,7 @@ gulp.task('lint', () => {
       'Stripe'
     ]
   })
-    .pipe(gulp.dest('app/scripts'));
+  .pipe(gulp.dest('app/scripts'));
 });
 gulp.task('lint:test', () => {
   return lint('test/spec/**/*.js', {
@@ -59,7 +61,7 @@ gulp.task('lint:test', () => {
       'mocha'
     ]
   })
-    .pipe(gulp.dest('test/spec/**/*.js'));
+  .pipe(gulp.dest('test/spec/**/*.js'));
 });
 
 gulp.task('html', ['styles', 'scripts'], () => {
@@ -85,55 +87,52 @@ gulp.task('images', () => {
       // as hooks for embedding and styling
       svgoPlugins: [{cleanupIDs: false}]
     }))
-    .on('error', function (err) {
-      console.log(err);
+    .on('error', () => {
       this.end();
     })))
     .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('fonts', () => {
-  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function (err) {})
+  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', () => {})
     .concat('app/fonts/**/*')
     .concat('node_modules/font-awesome/fonts/*'))
     .pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task("favicons", () => {
-  return gulp.src("app/images/favicon.png").pipe($.favicons({
-      appName: "DAZSER Payment Portal",
-      appDescription: "This application lets customers pay by credit card",
-      developerName: "Kyle McNally",
-      developerURL: "http://www.dazser.com/",
-      background: "#000000",
-      path: "/favicons",
-      url: "http://pay.dazser.com/",
-      display: "standalone",
-      orientation: "portrait",
-      version: 1.0,
-      logging: true,
-      online: false,
-      html: "favicons.html",
-      pipeHTML: true,
-      replace: false,
-      icons: {
-           android: true,              // Create Android homescreen icon. `boolean`
-           appleIcon: true,            // Create Apple touch icons. `boolean`
-           appleStartup: false,         // Create Apple startup images. `boolean`
-           coast: false,                // Create Opera Coast icon. `boolean`
-           favicons: true,             // Create regular favicons. `boolean`
-           firefox: false,              // Create Firefox OS icons. `boolean`
-           opengraph: false,            // Create Facebook OpenGraph image. `boolean`
-           twitter: false,              // Create Twitter Summary Card image. `boolean`
-           windows: true,              // Create Windows 8 tile icons. `boolean`
-           yandex: false                // Create Yandex browser icon. `boolean`
-       }
+gulp.task('favicons', () => {
+  return gulp.src('app/images/favicon.png').pipe($.favicons({
+    appName: 'DAZSER Payment Portal',
+    appDescription: 'This application lets customers pay by credit card',
+    developerName: 'Kyle McNally',
+    developerURL: 'http://www.dazser.com/',
+    background: '#000000',
+    path: '/favicons',
+    url: 'http://pay.dazser.com/',
+    display: 'standalone',
+    orientation: 'portrait',
+    version: 1.0,
+    logging: true,
+    online: false,
+    html: 'favicons.html',
+    pipeHTML: true,
+    replace: false,
+    icons: {
+      android: true,              // Create Android homescreen icon. `boolean`
+      appleIcon: true,            // Create Apple touch icons. `boolean`
+      appleStartup: false,        // Create Apple startup images. `boolean`
+      coast: false,               // Create Opera Coast icon. `boolean`
+      favicons: true,             // Create regular favicons. `boolean`
+      firefox: false,             // Create Firefox OS icons. `boolean`
+      opengraph: false,           // Create Facebook OpenGraph image. `boolean`
+      twitter: false,             // Create Twitter Summary Card image. `boolean`
+      windows: true,              // Create Windows 8 tile icons. `boolean`
+      yandex: false               // Create Yandex browser icon. `boolean`
+    }
   }))
-  .pipe(gulp.dest("dist/favicons"));
+  .pipe(gulp.dest('dist/favicons'));
 });
-
-
 
 gulp.task('extras', () => {
   return gulp.src([
