@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "stripe/stripe-php": "^3.4"
+        "stripe/stripe-php": "^4"
     },
     "config": {
         "vendor-dir": "server/vendor"
