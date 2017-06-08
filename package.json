@@ -3,14 +3,25 @@
   "engines": {
     "node": ">=4"
   },
+  "scripts": {
+    "clean": "rm -rf dist .tmp",
+    "lint": "./node_modules/.bin/eslint app/scripts/**/*.js; exit 0",
+    "build-css": "./node_modules/.bin/node-sass app/styles/main.scss dist/styles/main.css",
+    "postcss": "postcss dist/styles/main.css --use autoprefixer cssnano -o dist/styles/main.css",
+    "html": "cp app/*.html dist/; cp app/*.txt dist/"
+  },
   "dependencies": {
     "font-awesome": "^4.7.0",
     "material-design-lite": "^1.3.0",
     "mdl-selectfield": "^1.0.4"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.1",
     "browser-sync": "^2.2.1",
+    "cssnano": "^3.10.0",
     "del": "^2.1.0",
+    "eslint": "^3.19.0",
+    "favicons": "^4.8.6",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cache": "^0.4.0",
@@ -30,6 +41,8 @@
     "gulp-uncss": "^1.0.4",
     "gulp-useref": "^3",
     "main-bower-files": "^2.5.0",
+    "node-sass": "^4.5.3",
+    "postcss-cli": "^4.0.0",
     "wiredep": "^4"
   },
   "eslintConfig": {
@@ -48,5 +61,6 @@
         "single"
       ]
     }
-  }
+  },
+  "false": {}
 }
