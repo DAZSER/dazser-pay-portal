@@ -18,9 +18,8 @@ if ( urlParams.r ){
 } else {
   returnText = 'Error: Please contact us for assistance before trying again.';
 }
-console.log(returnText);
 
-document.addEventListener('DOMContentLoaded', function(event){
+document.addEventListener('DOMContentLoaded', function(){
   var returnElement = document.getElementById('return-text');
   returnElement.innerHTML = returnText.message;
 });
