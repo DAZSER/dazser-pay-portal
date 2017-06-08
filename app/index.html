@@ -46,14 +46,6 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
-    <!-- This is the Stripe JS file -->
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
-      //Set my publishable key
-      //Stripe.setPublishableKey('pk_live_j6A6g7uGYYkLAwXzs1CKA8bH');
-      Stripe.setPublishableKey('pk_test_cZSmFhp4VdaBYUOCq0eOsS1r');
-    </script>
-
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -110,57 +102,14 @@
 
             <div id="credit-card">
                 <p>Paying with Credit Card incurs a $15 convenience fee</p>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="card-number" type="text" placeholder="" class="mdl-textfield__input" data-stripe="number">
-                  <label class="mdl-textfield__label" for="card-number">Card number</label>
-                  <i class="input-icon fa fa-lg" id="input-icon-card-number"></i>
-                  <span class="mdl-textfield__error" id="card-error">What the what</span>
-                </div>
-
-                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" id="expires-month-select">
-                  <select id="expires-month" class="mdl-selectfield__select" data-stripe="exp-month">
-                    <option value=""></option>
-                    <option value="1">01 - January</option>
-                    <option value="2">02 - February</option>
-                    <option value="3">03 - March</option>
-                    <option value="4">04 - April</option>
-                    <option value="5">05 - May</option>
-                    <option value="6">06 - June</option>
-                    <option value="7">07 - July</option>
-                    <option value="8">08 - August</option>
-                    <option value="9">09 - September</option>
-                    <option value="10">10 - October</option>
-                    <option value="11">11 - November</option>
-                    <option value="12">12 - December</option>
-                  </select>
-                  <label class="mdl-selectfield__label" for="expires-month">Month</label>
-                  <span class="mdl-textfield__error" id="expires-month-error">Select a month</span>
-                </div>
-
-                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" id="expires-year-select">
-                  <select id="expires-year" class="mdl-selectfield__select" data-stripe="exp-year">
-                    <option value=""></option>
-                    <option value="2016">2016</option>
-                    <option value="2017">2017</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                  </select>
-                  <label class="mdl-selectfield__label" for="expires-year">Year</label>
-                  <span class="mdl-textfield__error" id="expires-year-error">Select a year</span>
-                </div>
-
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input id="cvc" type="text" placeholder="" class="mdl-textfield__input" data-stripe="cvc">
-                  <label class="mdl-textfield__label" for="cvc">CVC</label>
-                  <span class="mdl-textfield__error" id="cvc-error">Select a year</span>
+                <div id="card-element">
+                  <!-- a Stripe Element will be inserted here. -->
                 </div>
                 <!-- END CC -->
               </div>
 
-              <p id="error-holder">&nbsp;</p>
+              <!-- Used to display form errors -->
+              <div id="error-holder" role="alert">&nbsp;</div>
 
           <!-- END SUPPORTING -->
           </div>
@@ -173,6 +122,9 @@
       </div>
     </main>
   </div>
+
+    <!-- This is the Stripe JS file -->
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -195,7 +147,6 @@
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/ux.js"></script>
-    <script src="scripts/validation.js"></script>
     <script src="scripts/stripe.js"></script>
     <!-- endbuild -->
 
